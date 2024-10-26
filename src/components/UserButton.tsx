@@ -34,7 +34,9 @@ export default function UserButton() {
       <PopoverContent>
         <Button
           variant={"destructive"}
-          onClick={() => logout}
+          onClick={() => {
+            logout();
+          }}
           className="w-full"
         >
           Log out

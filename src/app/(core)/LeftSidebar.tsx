@@ -1,6 +1,7 @@
 import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import UserButton from "@/components/UserButton";
+import ThemeSwitcher from "@/components/ThemeSwitcher";
 
 // Menu items.
 const items = [
@@ -49,6 +50,7 @@ export default function LeftSidebar() {
             ))}
           </ul>
           <div>
+            <ThemeSwitcher />
             <UserButton />
           </div>
         </div>
