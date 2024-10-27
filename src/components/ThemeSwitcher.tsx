@@ -26,7 +26,7 @@ export default function ThemeSwitcher() {
   }
 
   return (
-    <div className="ml-auto grid w-fit flex-shrink grid-cols-3 rounded-full border">
+    <div className="ml-auto hidden w-fit rounded-full border lg:grid lg:grid-cols-3">
       <span className="sr-only">switch theme</span>
       <Button
         variant={theme === "system" ? "outline" : "ghost"}

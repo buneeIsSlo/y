@@ -1,18 +1,25 @@
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
+import { Calendar, Home, Inbox, Settings, Bookmark } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import UserButton from "@/components/UserButton";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
+import Link from "next/link";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 // Menu items.
 const items = [
   {
     title: "Home",
-    url: "#",
+    url: "/",
     icon: Home,
   },
   {
-    title: "Inbox",
-    url: "#",
+    title: "Messages",
+    url: "/messages",
     icon: Inbox,
   },
   {
@@ -21,34 +28,46 @@ const items = [
     icon: Calendar,
   },
   {
-    title: "Search",
-    url: "#",
-    icon: Search,
+    title: "Bookmarks",
+    url: "/bookmarks",
+    icon: Bookmark,
   },
   {
     title: "Settings",
-    url: "#",
+    url: "/settings",
     icon: Settings,
   },
 ];
 
 export default function LeftSidebar() {
   return (
-    <div className="relative w-[20rem]">
-      <div className="sticky top-0 hidden h-svh w-full py-6 lg:block">
+    <div className="relative w-fit lg:w-80">
+      <div className="sticky top-0 h-svh w-fit bg-card px-2 py-6 lg:block lg:w-full">
         <div className="flex h-full w-full flex-col justify-between">
-          <ul className="w-full">
-            {items.map((item) => (
-              <li key={item.title}>
-                <Button variant={"ghost"} className="w-full justify-start py-6">
-                  <a href={item.url} className="flex gap-2">
-                    <item.icon className="h-5 w-5" />
-                    <span>{item.title}</span>
-                  </a>
-                </Button>
-              </li>
-            ))}
-          </ul>
+          <TooltipProvider>
+            <ul className="w-fit lg:w-full">
+              {items.map((item) => (
+                <li key={item.title}>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        variant={"ghost"}
+                        className="w-fit items-center justify-start py-6 lg:w-full"
+                      >
+                        <Link href={item.url} className="flex gap-2">
+                          <item.icon className="h-5 w-5" />
+                          <span className="hidden lg:inline">{item.title}</span>
+                        </Link>
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent className="lg:hidden" side="right">
+                      {item.title}
+                    </TooltipContent>
+                  </Tooltip>
+                </li>
+              ))}
+            </ul>
+          </TooltipProvider>
           <div>
             <ThemeSwitcher />
             <UserButton />
