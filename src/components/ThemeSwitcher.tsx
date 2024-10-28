@@ -2,7 +2,7 @@
 
 import { useTheme } from "next-themes";
 import { Button } from "./ui/button";
-import { Monitor, Moon, Sun } from "lucide-react";
+import { Desktop, MoonStar, Sun } from "@mynaui/icons-react";
 import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
 import { Skeleton } from "./ui/skeleton";
@@ -35,7 +35,7 @@ export default function ThemeSwitcher() {
         className="rounded-full border-primary"
         onClick={() => setTheme("system")}
       >
-        <Monitor
+        <Desktop
           className={cn("size-4", theme !== "system" && "text-gray-400")}
         />
       </Button>
@@ -55,7 +55,9 @@ export default function ThemeSwitcher() {
         className="rounded-full border-primary"
         onClick={() => setTheme("dark")}
       >
-        <Moon className={cn("size-4", theme !== "dark" && "text-gray-400")} />
+        <MoonStar
+          className={cn("size-4", theme !== "dark" && "text-gray-400")}
+        />
       </Button>
     </div>
   );

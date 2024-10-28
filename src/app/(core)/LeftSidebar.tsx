@@ -1,4 +1,11 @@
-import { Calendar, Home, Inbox, Settings, Bookmark } from "lucide-react";
+import {
+  Home,
+  Bell,
+  Envelope,
+  Calendar,
+  Bookmark,
+  Cog,
+} from "@mynaui/icons-react";
 import { Button } from "@/components/ui/button";
 import UserButton from "@/components/UserButton";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
@@ -10,7 +17,6 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-// Menu items.
 const items = [
   {
     title: "Home",
@@ -18,9 +24,14 @@ const items = [
     icon: Home,
   },
   {
+    title: "Notifications",
+    url: "/notifications",
+    icon: Bell,
+  },
+  {
     title: "Messages",
     url: "/messages",
-    icon: Inbox,
+    icon: Envelope,
   },
   {
     title: "Calendar",
@@ -35,7 +46,7 @@ const items = [
   {
     title: "Settings",
     url: "/settings",
-    icon: Settings,
+    icon: Cog,
   },
 ];
 
