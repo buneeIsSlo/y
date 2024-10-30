@@ -9,8 +9,8 @@ export default async function Home() {
     orderBy: { createdAt: "desc" },
   });
   return (
-    <div className="w-full min-w-0">
-      <div className="min-h-[300dvh] w-full min-w-0 space-y-5">
+    <div className="w-full min-w-0 flex-shrink-0">
+      <div className="min-h-[300dvh] w-full space-y-5">
         <PostEditor />
         {posts.map((post) => (
           <Post key={post.id} post={post} />

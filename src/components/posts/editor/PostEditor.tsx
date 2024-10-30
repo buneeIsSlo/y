@@ -29,11 +29,11 @@ export default function PostEditor() {
   }
 
   return (
-    <div className="flex flex-col gap-5 rounded-2xl bg-card p-5 shadow-md">
+    <div className="flex flex-col gap-5 rounded-2xl border bg-card p-5 shadow-sm">
       <div className="flex gap-5">
-        <Avatar className="hidden border sm:inline">
+        <Avatar className="hidden border sm:inline md:h-14 md:w-14">
           <AvatarImage src={user.avatarUrl} alt={`@${user.username}`} />
-          <AvatarFallback className="capitalize">
+          <AvatarFallback className="uppercase">
             {user.displayName.slice(0, 2)}
           </AvatarFallback>
         </Avatar>

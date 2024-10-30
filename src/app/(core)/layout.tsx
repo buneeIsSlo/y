@@ -2,6 +2,7 @@ import { validateRequest } from "@/auth";
 import { redirect } from "next/navigation";
 import SessionProvider from "./SessionProvider";
 import LeftSidebar from "./LeftSidebar";
+import TrendingSidebar from "@/components/TrendingSidebar";
 
 export default async function Layout({
   children,
@@ -14,9 +15,10 @@ export default async function Layout({
 
   return (
     <SessionProvider value={session}>
-      <div className="mx-auto flex max-w-6xl">
+      <div className="mx-auto flex max-w-7xl gap-4">
         <LeftSidebar />
-        <div className="w-full">{children}</div>
+        <div className="min-w-0 flex-1">{children}</div>
+        <TrendingSidebar />
       </div>
     </SessionProvider>
   );
