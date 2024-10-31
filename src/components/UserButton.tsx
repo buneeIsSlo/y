@@ -6,9 +6,11 @@ import { logout } from "@/app/(auth)/actions";
 import { Popover, PopoverTrigger, PopoverContent } from "./ui/popover";
 import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
 import { Ellipsis } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function UserButton() {
   const { user } = useSession();
+  const queryClient = useQueryClient();
 
   return (
     <Popover>
@@ -38,6 +40,7 @@ export default function UserButton() {
         <Button
           variant={"destructive"}
           onClick={() => {
+            queryClient.clear();
             logout();
           }}
           className="w-full"
