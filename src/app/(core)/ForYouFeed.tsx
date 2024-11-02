@@ -1,22 +1,40 @@
 "use client";
 
+import InfiniteScrollContainer from "@/components/InfiniteScrollContainer";
 import Post from "@/components/posts/Post";
 import kyInstance from "@/lib/ky";
-import { useQuery } from "@tanstack/react-query";
-import { PostData } from "@/lib/types";
+import { PostsPage } from "@/lib/types";
 import { Spinner } from "@mynaui/icons-react";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 export default function ForYouFeed() {
-  const query = useQuery<PostData[]>({
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isFetchingNextPage,
+    status,
+  } = useInfiniteQuery({
     queryKey: ["post-feed", "for-you"],
-    queryFn: kyInstance.get("/api/posts/for-you").json<PostData[]>,
+    queryFn: ({ pageParam }) =>
+      kyInstance
+        .get(
+          "/api/posts/for-you",
+          pageParam ? { searchParams: { cursor: pageParam } } : {},
+        )
+        .json<PostsPage>(),
+    initialPageParam: null as string | null,
+    getNextPageParam: (lastPage) => lastPage.nextCursor,
   });
 
-  if (query.status === "pending") {
+  const posts = data?.pages.flatMap((page) => page.posts) || [];
+
+  if (status === "pending") {
     return <Spinner className="mx-auto animate-spin" />;
   }
 
-  if (query.status === "error") {
+  if (status === "error") {
     return (
       <p className="text-center text-destructive">
         An error occured while loading posts
@@ -25,10 +43,16 @@ export default function ForYouFeed() {
   }
 
   return (
-    <>
-      {query.data.map((post) => (
+    <InfiniteScrollContainer
+      className="space-y-5"
+      onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}
+    >
+      {posts.map((post) => (
         <Post key={post.id} post={post} />
       ))}
-    </>
+      {isFetchingNextPage && (
+        <Spinner className="mx-auto my-3 size-6 animate-spin" />
+      )}
+    </InfiniteScrollContainer>
   );
 }
