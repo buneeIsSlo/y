@@ -2,6 +2,7 @@
 
 import InfiniteScrollContainer from "@/components/InfiniteScrollContainer";
 import Post from "@/components/posts/Post";
+import PostsLoadingSkelton from "@/components/posts/PostsLoadingSkeleton";
 import kyInstance from "@/lib/ky";
 import { PostsPage } from "@/lib/types";
 import { Spinner } from "@mynaui/icons-react";
@@ -31,7 +32,15 @@ export default function ForYouFeed() {
   const posts = data?.pages.flatMap((page) => page.posts) || [];
 
   if (status === "pending") {
-    return <Spinner className="mx-auto animate-spin" />;
+    return <PostsLoadingSkelton />;
+  }
+
+  if (status === "success" && !posts.length && !hasNextPage) {
+    return (
+      <p className="text-center text-muted-foreground">
+        No posts to show yet :/
+      </p>
+    );
   }
 
   if (status === "error") {
