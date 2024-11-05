@@ -53,7 +53,8 @@ const items = [
 export default function LeftSidebar() {
   return (
     <div className="relative w-fit lg:w-80">
-      <div className="sticky top-0 h-svh w-fit bg-card px-2 py-6 lg:block lg:w-full">
+      <div className="fixed left-0 top-0 -z-10 h-full w-[200%] bg-gradient-to-r from-primary/10 via-accent/10 to-transparent" />
+      <div className="sticky top-0 h-svh w-fit border bg-card/40 px-2 py-6 backdrop-blur-xl lg:block lg:w-full">
         <div className="flex h-full w-full flex-col justify-between">
           <TooltipProvider>
             <ul className="w-fit lg:w-full">

@@ -2,6 +2,7 @@
 
 import { validateRequest } from "@/auth";
 import prisma from "@/lib/prisma";
+import { postDataInclude } from "@/lib/types";
 import { createPostScema } from "@/lib/validation";
 
 export async function submitPost(input: string) {
@@ -13,12 +14,13 @@ export async function submitPost(input: string) {
 
   const { content } = createPostScema.parse({ content: input });
 
-  await prisma.post.create({
+  const newPost = await prisma.post.create({
     data: {
       content,
       userId: user.id,
     },
+    include: postDataInclude,
   });
 
-  /* path will be revalidated using tanstack query */
+  return newPost;
 }
