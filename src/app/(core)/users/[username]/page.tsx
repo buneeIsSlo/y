@@ -13,7 +13,7 @@ import { cache } from "react";
 import UserPostsFeed from "./UserPostsFeed";
 
 interface PageProps {
-  params: { username: string };
+  params: Promise<{ username: string }>;
 }
 
 const getUser = cache(async (username: string, loggedInUserId: string) => {
@@ -32,9 +32,9 @@ const getUser = cache(async (username: string, loggedInUserId: string) => {
   return user;
 });
 
-export async function generateMetaData({
-  params: { username },
-}: PageProps): Promise<Metadata> {
+export async function generateMetaData(props: PageProps): Promise<Metadata> {
+  const params = await props.params;
+  const { username } = params;
   const { user: loggedInUser } = await validateRequest();
 
   if (!loggedInUser) return {};
@@ -46,7 +46,11 @@ export async function generateMetaData({
   };
 }
 
-export default async function Page({ params: { username } }: PageProps) {
+export default async function Page(props: PageProps) {
+  const params = await props.params;
+
+  const { username } = params;
+
   const { user: loggedInUser } = await validateRequest();
 
   if (!loggedInUser) {
@@ -96,7 +100,7 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
               </AvatarFallback>
             </Avatar>
             {user.id === loggedInUserId ? (
-              <Button variant={"outline"}>Edit profile</Button>
+              <Button variant={"outline"}>Edit Profile</Button>
             ) : (
               <FollowButton userId={user.id} initialState={followerInfo} />
             )}
