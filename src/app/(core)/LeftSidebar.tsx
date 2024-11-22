@@ -53,9 +53,8 @@ const items = [
 export default function LeftSidebar() {
   return (
     <div className="relative w-fit lg:w-80">
-      <div className="fixed left-0 top-0 -z-10 h-full w-[200%] bg-gradient-to-r from-primary/10 via-accent/10 to-transparent" />
-      <div className="sticky top-0 h-svh w-fit border bg-card/40 px-2 py-6 backdrop-blur-xl lg:block lg:w-full">
-        <div className="flex h-full w-full flex-col justify-between">
+      <div className="sticky top-0 h-svh w-fit py-4 pl-4 lg:block lg:w-full lg:pl-0">
+        <div className="flex h-full w-full flex-col justify-between rounded-3xl border bg-card/40 px-2 py-4 backdrop-blur-3xl">
           <TooltipProvider>
             <ul className="w-fit lg:w-full">
               {items.map((item) => (
@@ -64,10 +63,11 @@ export default function LeftSidebar() {
                     <TooltipTrigger asChild>
                       <Button
                         variant={"ghost"}
-                        className="w-fit items-center justify-start py-6 lg:w-full"
+                        className="my-1 items-center justify-start py-6 lg:w-full"
+                        asChild
                       >
                         <Link href={item.url} className="flex gap-2">
-                          <item.icon className="h-5 w-5" />
+                          <item.icon className="h-5 w-5 stroke-2" />
                           <span className="hidden lg:inline">{item.title}</span>
                         </Link>
                       </Button>

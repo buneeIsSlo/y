@@ -3,7 +3,6 @@ import prisma from "@/lib/prisma";
 import { getUserDataSelect } from "@/lib/types";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Button } from "./ui/button";
 import { unstable_cache } from "next/cache";
 import { formatNumber } from "@/lib/utils";
 import { Suspense } from "react";
@@ -12,8 +11,8 @@ import FollowButton from "./FollowButton";
 
 export default function TrendingSidebar() {
   return (
-    <div className="relative hidden lg:block lg:w-52">
-      <div className="sticky top-0 h-svh w-full py-6">
+    <div className="relative hidden lg:block lg:w-80">
+      <div className="sticky top-0 h-svh w-full py-4">
         <Suspense fallback={<TrendingSidebarSkeleton />}>
           <WhoToFollow />
           <TrendingTopics />
@@ -62,9 +61,9 @@ async function WhoToFollow() {
   });
 
   return (
-    <div className="w-full space-y-5 rounded-2xl border bg-card p-5 shadow-sm">
+    <div className="w-full space-y-5 rounded-3xl border bg-card p-5">
       <h2 className="text-lg font-bold">Who to follow</h2>
-      <div>
+      <div className="flex flex-col gap-3">
         {usersToFollow.map((user) => (
           <div
             key={user.id}
@@ -128,9 +127,9 @@ async function TrendingTopics() {
   const trendingTopics = await getTrendingTopics();
 
   return (
-    <div className="space-y-5 rounded-2xl bg-card p-5 shadow-sm">
+    <div className="my-5 space-y-5 rounded-3xl border bg-card p-5">
       <h2 className="text-lg font-bold">Trending topics</h2>
-      <div>
+      <div className="flex flex-col gap-3">
         {trendingTopics.map(({ hashtag, count }) => {
           const topic = hashtag.split("#")[1];
 
