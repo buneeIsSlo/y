@@ -1,8 +1,7 @@
 import { validateRequest } from "@/auth";
 import { redirect } from "next/navigation";
-import SessionProvider from "./SessionProvider";
 import LeftSidebar from "./LeftSidebar";
-import TrendingSidebar from "@/components/TrendingSidebar";
+import SessionProvider from "./SessionProvider";
 
 export default async function Layout({
   children,
@@ -17,8 +16,7 @@ export default async function Layout({
     <SessionProvider value={session}>
       <div className="mx-auto flex max-w-7xl gap-4">
         <LeftSidebar />
-        <div className="min-w-0 flex-1">{children}</div>
-        <TrendingSidebar />
+        <div className="min-w-0 flex-1 py-4">{children}</div>
       </div>
     </SessionProvider>
   );

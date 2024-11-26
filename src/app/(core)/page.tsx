@@ -2,10 +2,11 @@ import PostEditor from "@/components/posts/editor/PostEditor";
 import ForYouFeed from "./ForYouFeed";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import FollowingFeed from "./FollowingFeed";
+import TrendingSidebar from "@/components/TrendingSidebar";
 
 export default async function Home() {
   return (
-    <div className="w-full min-w-0 flex-shrink-0">
+    <div className="flex gap-4">
       <div className="w-full space-y-5">
         <PostEditor />
         <Tabs defaultValue="for-you">
@@ -21,6 +22,7 @@ export default async function Home() {
           </TabsContent>
         </Tabs>
       </div>
+      <TrendingSidebar />
     </div>
   );
 }

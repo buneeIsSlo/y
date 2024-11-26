@@ -11,6 +11,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { cache } from "react";
 import UserPostsFeed from "./UserPostsFeed";
+import TrendingSidebar from "@/components/TrendingSidebar";
 
 interface PageProps {
   params: Promise<{ username: string }>;
@@ -66,11 +67,12 @@ export default async function Page(props: PageProps) {
   const user = await getUser(username, loggedInUser.id);
 
   return (
-    <main className="w-full min-w-0 gap-5">
+    <main className="flex gap-4">
       <div className="w-full min-w-0 space-y-5">
         <UserProfile user={user} loggedInUserId={loggedInUser.id} />
         <UserPostsFeed userId={user.id} />
       </div>
+      <TrendingSidebar />
     </main>
   );
 }

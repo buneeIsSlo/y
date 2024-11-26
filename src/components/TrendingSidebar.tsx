@@ -11,11 +11,13 @@ import FollowButton from "./FollowButton";
 
 export default function TrendingSidebar() {
   return (
-    <div className="relative hidden lg:block lg:w-80">
-      <div className="sticky top-0 h-svh w-full py-4">
+    <div className="relative hidden flex-shrink-0 lg:block lg:w-80">
+      <div className="sticky top-0 h-svh w-full">
         <Suspense fallback={<TrendingSidebarSkeleton />}>
-          <WhoToFollow />
-          <TrendingTopics />
+          <div className="flex flex-col gap-4">
+            <WhoToFollow />
+            <TrendingTopics />
+          </div>
         </Suspense>
       </div>
     </div>
@@ -55,10 +57,17 @@ async function WhoToFollow() {
       NOT: {
         id: user.id,
       },
+      followers: {
+        none: {
+          followerId: user.id,
+        },
+      },
     },
     select: getUserDataSelect(user.id),
     take: 5,
   });
+
+  if (!usersToFollow.length) return;
 
   return (
     <div className="w-full space-y-5 rounded-3xl border bg-card p-5">
@@ -127,8 +136,11 @@ async function TrendingTopics() {
   const trendingTopics = await getTrendingTopics();
 
   return (
-    <div className="my-5 space-y-5 rounded-3xl border bg-card p-5">
+    <div className="space-y-5 rounded-3xl border bg-card p-5">
       <h2 className="text-lg font-bold">Trending topics</h2>
+      {!trendingTopics.length && (
+        <p className="text-muted-foreground">Not enough topics to show</p>
+      )}
       <div className="flex flex-col gap-3">
         {trendingTopics.map(({ hashtag, count }) => {
           const topic = hashtag.split("#")[1];
