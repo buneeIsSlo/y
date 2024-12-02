@@ -12,6 +12,7 @@ import { notFound } from "next/navigation";
 import { cache } from "react";
 import UserPostsFeed from "./UserPostsFeed";
 import TrendingSidebar from "@/components/TrendingSidebar";
+import UserAvatar from "@/components/UserAvatar";
 
 interface PageProps {
   params: Promise<{ username: string }>;
@@ -33,14 +34,16 @@ const getUser = cache(async (username: string, loggedInUserId: string) => {
   return user;
 });
 
-export async function generateMetaData(props: PageProps): Promise<Metadata> {
+export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const params = await props.params;
   const { username } = params;
   const { user: loggedInUser } = await validateRequest();
 
+  console.log(username, "before checking");
   if (!loggedInUser) return {};
 
   const user = await getUser(username, loggedInUser.id);
+  console.log(username, user.displayName, "after checking");
 
   return {
     title: `${user.displayName} (@${user.username})`,
@@ -95,12 +98,7 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
       <div className="bg-card">
         <div className="flex flex-col space-y-3">
           <div className="flex items-start justify-between">
-            <Avatar className="grid size-20 place-content-center border">
-              <AvatarImage src={user.avatarUrl} alt={`@${user.username}`} />
-              <AvatarFallback className="capitalize">
-                {user.username.slice(0, 2)}
-              </AvatarFallback>
-            </Avatar>
+            <UserAvatar user={user} className="size-20" />
             {user.id === loggedInUserId ? (
               <Button variant={"outline"}>Edit Profile</Button>
             ) : (
