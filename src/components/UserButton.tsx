@@ -4,9 +4,9 @@ import { Button } from "./ui/button";
 import { useSession } from "@/app/(core)/SessionProvider";
 import { logout } from "@/app/(auth)/actions";
 import { Popover, PopoverTrigger, PopoverContent } from "./ui/popover";
-import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
 import { Ellipsis } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
+import UserAvatar from "./UserAvatar";
 
 export default function UserButton() {
   const { user } = useSession();
@@ -20,12 +20,7 @@ export default function UserButton() {
           variant={"ghost"}
         >
           <span className="flex gap-2">
-            <Avatar className="border">
-              <AvatarImage src={user.avatarUrl} alt={`@${user.displayName}`} />
-              <AvatarFallback className="capitalize">
-                {user.displayName.slice(0, 2)}
-              </AvatarFallback>
-            </Avatar>
+            <UserAvatar user={user} />
             <p className="hidden flex-col gap-0.5 lg:flex">
               <span className="capitalize">
                 <b>{user.displayName}</b>

@@ -6,10 +6,10 @@ import { FollowerInfo, UserData } from "@/lib/types";
 import { TooltipProvider } from "./ui/tooltip";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 import Link from "next/link";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import FollowButton from "./FollowButton";
 import Linkify from "./Linkify";
 import FollowerCount from "./FollowerCount";
+import UserAvatar from "./UserAvatar";
 
 interface UserTooltipProps extends PropsWithChildren {
   user: UserData;
@@ -33,12 +33,7 @@ export default function UserTooltip({ user, children }: UserTooltipProps) {
           <div className="flex min-w-56 max-w-80 flex-col gap-3 break-words px-1 py-2.5">
             <div className="flex items-center justify-between gap-2">
               <Link href={`/users/${user.username}`}>
-                <Avatar className="">
-                  <AvatarImage src={user.avatarUrl} alt={`@${user.username}`} />
-                  <AvatarFallback className="capitalize">
-                    {user.displayName.slice(0, 2)}
-                  </AvatarFallback>
-                </Avatar>
+                <UserAvatar user={user} />
               </Link>
               {loggedInUser.id !== user.id && (
                 <FollowButton userId={user.id} initialState={followerState} />

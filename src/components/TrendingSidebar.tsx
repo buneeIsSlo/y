@@ -1,13 +1,13 @@
 import { validateRequest } from "@/auth";
 import prisma from "@/lib/prisma";
 import { getUserDataSelect } from "@/lib/types";
-import Link from "next/link";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { unstable_cache } from "next/cache";
 import { formatNumber } from "@/lib/utils";
+import { unstable_cache } from "next/cache";
+import Link from "next/link";
 import { Suspense } from "react";
-import { Skeleton } from "./ui/skeleton";
 import FollowButton from "./FollowButton";
+import { Skeleton } from "./ui/skeleton";
+import UserAvatar from "./UserAvatar";
 import UserTooltip from "./UserTooltip";
 
 export default function TrendingSidebar() {
@@ -84,12 +84,7 @@ async function WhoToFollow() {
                 href={`/users/${user.username}`}
                 className="flex items-center gap-3"
               >
-                <Avatar>
-                  <AvatarImage src={user.avatarUrl} alt={`@${user.username}`} />
-                  <AvatarFallback className="uppercase">
-                    {user.displayName.slice(0, 2)}
-                  </AvatarFallback>
-                </Avatar>
+                <UserAvatar user={user} />
                 <div>
                   <p className="line-clamp-1 break-all font-semibold hover:underline">
                     {user.displayName}

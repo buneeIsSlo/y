@@ -1,12 +1,12 @@
 "use client";
 import { PostData } from "@/lib/types";
 import Link from "next/link";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { formatRelativeDate } from "@/lib/utils";
 import { useSession } from "@/app/(core)/SessionProvider";
 import PostOptionsButton from "./PostOptionsButton";
 import Linkify from "../Linkify";
 import UserTooltip from "../UserTooltip";
+import UserAvatar from "../UserAvatar";
 
 interface PostProps {
   post: PostData;
@@ -21,15 +21,7 @@ export default function Post({ post }: PostProps) {
         <div className="flex flex-wrap gap-3">
           <UserTooltip user={post.user}>
             <Link href={`/users/${post.user.username}`}>
-              <Avatar className="">
-                <AvatarImage
-                  src={post.user.avatarUrl}
-                  alt={`@${post.user.username}`}
-                />
-                <AvatarFallback className="capitalize">
-                  {post.user.displayName.slice(0, 2)}
-                </AvatarFallback>
-              </Avatar>
+              <UserAvatar user={post.user} />
             </Link>
           </UserTooltip>
           <div>

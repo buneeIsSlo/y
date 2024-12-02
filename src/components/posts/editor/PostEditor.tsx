@@ -1,7 +1,7 @@
 "use client";
 
 import { useSession } from "@/app/(core)/SessionProvider";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import UserAvatar from "@/components/UserAvatar";
 import LoadingButton from "@/components/ui/loader-button";
 import Placeholder from "@tiptap/extension-placeholder";
 import { EditorContent, useEditor } from "@tiptap/react";
@@ -37,12 +37,7 @@ export default function PostEditor() {
   return (
     <div className="flex flex-col gap-5 rounded-3xl border bg-card p-5 shadow-sm">
       <div className="flex gap-5">
-        <Avatar className="hidden border sm:inline md:h-14 md:w-14">
-          <AvatarImage src={user.avatarUrl} alt={`@${user.username}`} />
-          <AvatarFallback className="uppercase">
-            {user.displayName.slice(0, 2)}
-          </AvatarFallback>
-        </Avatar>
+        <UserAvatar user={user} className="hidden sm:inline md:h-14 md:w-14" />
         <EditorContent
           editor={editor}
           className="max-h-[20rem] w-full overflow-y-auto rounded-2xl bg-background px-5"
