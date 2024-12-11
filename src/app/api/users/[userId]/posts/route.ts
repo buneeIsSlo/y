@@ -29,7 +29,6 @@ export async function GET(
       take: pageSize + 1,
       cursor: cursor ? { id: cursor } : undefined,
     });
-    console.log(posts[0]);
 
     const nextCursor = posts.length > pageSize ? posts[pageSize].id : null;
 

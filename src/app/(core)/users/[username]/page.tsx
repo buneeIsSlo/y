@@ -1,18 +1,16 @@
 import { validateRequest } from "@/auth";
 import FollowButton from "@/components/FollowButton";
 import FollowerCount from "@/components/FollowerCount";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+import TrendingSidebar from "@/components/TrendingSidebar";
+import UserAvatar from "@/components/UserAvatar";
 import prisma from "@/lib/prisma";
 import { FollowerInfo, getUserDataSelect, UserData } from "@/lib/types";
 import { formatNumber } from "@/lib/utils";
-import { AvatarFallback } from "@radix-ui/react-avatar";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { cache } from "react";
+import EditProfileButton from "./EditProfileButton";
 import UserPostsFeed from "./UserPostsFeed";
-import TrendingSidebar from "@/components/TrendingSidebar";
-import UserAvatar from "@/components/UserAvatar";
 
 interface PageProps {
   params: Promise<{ username: string }>;
@@ -39,11 +37,9 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const { username } = params;
   const { user: loggedInUser } = await validateRequest();
 
-  console.log(username, "before checking");
   if (!loggedInUser) return {};
 
   const user = await getUser(username, loggedInUser.id);
-  console.log(username, user.displayName, "after checking");
 
   return {
     title: `${user.displayName} (@${user.username})`,
@@ -100,7 +96,7 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
           <div className="flex items-start justify-between">
             <UserAvatar user={user} className="size-20" />
             {user.id === loggedInUserId ? (
-              <Button variant={"outline"}>Edit Profile</Button>
+              <EditProfileButton user={user} />
             ) : (
               <FollowButton userId={user.id} initialState={followerInfo} />
             )}
