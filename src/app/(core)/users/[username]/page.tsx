@@ -11,6 +11,7 @@ import { notFound } from "next/navigation";
 import { cache } from "react";
 import EditProfileButton from "./EditProfileButton";
 import UserPostsFeed from "./UserPostsFeed";
+import NavigateBackButton from "@/components/NavigateBackButton";
 
 interface PageProps {
   params: Promise<{ username: string }>;
@@ -90,26 +91,46 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
   };
 
   return (
-    <div className="mt-2 w-full">
-      <div className="bg-card">
-        <div className="flex flex-col space-y-3">
-          <div className="flex items-start justify-between">
-            <UserAvatar user={user} className="size-20" />
-            {user.id === loggedInUserId ? (
-              <EditProfileButton user={user} />
-            ) : (
-              <FollowButton userId={user.id} initialState={followerInfo} />
-            )}
-          </div>
-          <div>
-            <h1 className="font-bold">{user.displayName}</h1>
-            <p className="text-gray-300">@{user.username}</p>
-            <span className="text-sm text-muted-foreground">
-              Posts: {formatNumber(user._count.posts)}
-            </span>
-          </div>
-          <div>
-            <FollowerCount userId={user.id} initialState={followerInfo} />
+    <div>
+      <div className="mb-2 flex items-center gap-5 rounded-2xl border px-3 py-1">
+        <NavigateBackButton />
+        <div className="">
+          <h1 className="text-xl font-bold">{user.displayName}</h1>
+          <p className="text-sm text-muted-foreground">
+            {formatNumber(user._count.posts)} posts
+          </p>
+        </div>
+      </div>
+      <div className="w-full overflow-clip rounded-3xl border bg-card p-2">
+        <div className="">
+          <div
+            className="mb-2 h-32 w-full rounded-2xl bg-primary"
+            role="presentation"
+          ></div>
+          <div className="flex flex-col space-y-3">
+            <div className="relative flex items-start justify-between">
+              <UserAvatar
+                user={user}
+                className="absolute bottom-0 left-5 size-24 border-spacing-0 border-4 border-card"
+              />
+              <div className="ml-auto">
+                {user.id === loggedInUserId ? (
+                  <EditProfileButton user={user} />
+                ) : (
+                  <FollowButton userId={user.id} initialState={followerInfo} />
+                )}
+              </div>
+            </div>
+            <div className="flex flex-col gap-2 px-3">
+              <div>
+                <h1 className="text-xl font-bold">{user.displayName}</h1>
+                <p className="text-muted-foreground">@{user.username}</p>
+              </div>
+              <p>{user.bio}</p>
+              <div className="pb-2">
+                <FollowerCount userId={user.id} initialState={followerInfo} />
+              </div>
+            </div>
           </div>
         </div>
       </div>
