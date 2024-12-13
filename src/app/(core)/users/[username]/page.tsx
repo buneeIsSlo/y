@@ -12,6 +12,7 @@ import { cache } from "react";
 import EditProfileButton from "./EditProfileButton";
 import UserPostsFeed from "./UserPostsFeed";
 import NavigateBackButton from "@/components/NavigateBackButton";
+import Linkify from "@/components/Linkify";
 
 interface PageProps {
   params: Promise<{ username: string }>;
@@ -126,7 +127,13 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
                 <h1 className="text-xl font-bold">{user.displayName}</h1>
                 <p className="text-muted-foreground">@{user.username}</p>
               </div>
-              <p>{user.bio}</p>
+              {user.bio && (
+                <Linkify>
+                  <div className="breakwords overflow-clip whitespace-pre-line">
+                    {user.bio}
+                  </div>
+                </Linkify>
+              )}
               <div className="pb-2">
                 <FollowerCount userId={user.id} initialState={followerInfo} />
               </div>
