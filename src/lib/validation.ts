@@ -22,6 +22,7 @@ export type LoginValues = z.infer<typeof loginSchema>;
 
 export const createPostScema = z.object({
   content: requiredString,
+  mediaIds: z.array(z.string().max(4, "Cannot attach more than 4 media files")),
 });
 
 export const updateUserProfileSchema = z.object({
