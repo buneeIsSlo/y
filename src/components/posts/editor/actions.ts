@@ -15,7 +15,7 @@ export async function submitPost(input: {
     throw new Error("Unauthorized request");
   }
 
-  const { content, mediaIds } = createPostScema.parse({ content: input });
+  const { content, mediaIds } = createPostScema.parse(input);
 
   const newPost = await prisma.post.create({
     data: {
