@@ -155,6 +155,7 @@ function AttachmentPreviews({
           key={attachment.file.name}
           attachment={attachment}
           onRemoveClick={() => removeAttachment(attachment.file.name)}
+          className="aspect-auto"
         />
       ))}
     </div>
@@ -164,28 +165,31 @@ function AttachmentPreviews({
 interface AttachmentPreviewProps {
   attachment: Attachment;
   onRemoveClick: () => void;
+  className?: string;
 }
 
 function AttachmentPreview({
   attachment: { file, isUploading },
   onRemoveClick,
+  className,
 }: AttachmentPreviewProps) {
   const src = URL.createObjectURL(file);
 
   return (
-    <div
-      className={cn("relative mx-auto size-fit", isUploading && "opacity-50")}
-    >
+    <div className={cn("relative", isUploading && "opacity-50", className)}>
       {file.type.startsWith("image") ? (
         <Image
           src={src}
           alt="Attachment preview"
-          width={500}
-          height={500}
-          className="size-fit max-h-[30rem] rounded-2xl"
+          width={400}
+          height={400}
+          className="size-fit rounded-2xl object-cover"
         />
       ) : (
-        <video controls className="size-fit max-h-[30rem] rounded-2xl">
+        <video
+          controls
+          className="h-full max-h-[400px] w-full rounded-2xl object-cover"
+        >
           <source src={src} type={file.type} />
         </video>
       )}
@@ -194,8 +198,9 @@ function AttachmentPreview({
           variant={"ghost"}
           size={"icon"}
           className="absolute right-3 top-3 rounded-full bg-foreground p-1.5 text-background transition-colors hover:bg-foreground/60"
+          onClick={onRemoveClick}
         >
-          <X size={20} onClick={onRemoveClick} />
+          <X size={20} />
         </Button>
       )}
     </div>
