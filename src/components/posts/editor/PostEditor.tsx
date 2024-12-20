@@ -14,6 +14,13 @@ import { Image as ImageIcon, Spinner, X } from "@mynaui/icons-react";
 import { useRef } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 export default function PostEditor() {
   const { user } = useSession();
@@ -143,52 +150,97 @@ function AttachmentPreviews({
   attachments,
   removeAttachment,
 }: AttachmentPreviewsProps) {
-  return (
-    <div
-      className={cn(
-        "flex flex-col gap-3",
-        attachments.length > 1 && "sm:grid sm:grid-cols-2",
-      )}
-    >
-      {attachments.map((attachment) => (
+  if (attachments.length === 1) {
+    return (
+      <div className="relative w-full">
         <AttachmentPreview
-          key={attachment.file.name}
-          attachment={attachment}
-          onRemoveClick={() => removeAttachment(attachment.file.name)}
-          className="aspect-auto"
+          key={attachments[0].file.name}
+          attachment={attachments[0]}
+          onRemoveClick={() => removeAttachment(attachments[0].file.name)}
         />
-      ))}
-    </div>
+      </div>
+    );
+  }
+
+  if (attachments.length === 2) {
+    return (
+      <div className="grid grid-cols-2 gap-1">
+        {attachments.map((attachment) => (
+          <AttachmentPreview
+            key={attachment.file.name}
+            attachment={attachment}
+            onRemoveClick={() => removeAttachment(attachment.file.name)}
+            maintainSquareAspect
+          />
+        ))}
+      </div>
+    );
+  }
+
+  return (
+    <Carousel
+      className="w-full"
+      opts={{
+        align: "start",
+        slidesToScroll: 2,
+        startIndex: 0,
+        containScroll: "trimSnaps",
+      }}
+    >
+      <CarouselContent className="-ml-2">
+        {attachments.map((attachment) => (
+          <CarouselItem key={attachment.file.name} className="basis-1/2 pl-2">
+            <AttachmentPreview
+              attachment={attachment}
+              onRemoveClick={() => removeAttachment(attachment.file.name)}
+              maintainSquareAspect
+            />
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      <CarouselPrevious className="left-2" />
+      <CarouselNext className="right-2" />
+    </Carousel>
   );
 }
 
 interface AttachmentPreviewProps {
   attachment: Attachment;
   onRemoveClick: () => void;
-  className?: string;
+  maintainSquareAspect?: boolean;
 }
 
 function AttachmentPreview({
   attachment: { file, isUploading },
   onRemoveClick,
-  className,
+  maintainSquareAspect = false,
 }: AttachmentPreviewProps) {
   const src = URL.createObjectURL(file);
 
   return (
-    <div className={cn("relative", isUploading && "opacity-50", className)}>
+    <div className={cn("relative", isUploading && "opacity-50")}>
       {file.type.startsWith("image") ? (
-        <Image
-          src={src}
-          alt="Attachment preview"
-          width={400}
-          height={400}
-          className="size-fit rounded-2xl object-cover"
-        />
+        <div>
+          <Image
+            src={src}
+            alt="Attachment preview"
+            width={0}
+            height={0}
+            sizes="100vw"
+            className={cn(
+              "h-auto w-full rounded-2xl",
+              maintainSquareAspect && "aspect-square object-cover",
+            )}
+            unoptimized
+          />
+        </div>
       ) : (
         <video
           controls
-          className="h-full max-h-[400px] w-full rounded-2xl object-cover"
+          className={cn(
+            "h-auto w-full rounded-2xl object-cover",
+            maintainSquareAspect && "aspect-square",
+          )}
         >
           <source src={src} type={file.type} />
         </video>
