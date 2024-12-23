@@ -10,6 +10,13 @@ import UserTooltip from "../UserTooltip";
 import UserAvatar from "../UserAvatar";
 import { Media } from "@prisma/client";
 import Image from "next/image";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "../ui/carousel";
 
 interface PostProps {
   post: PostData;
@@ -66,33 +73,56 @@ interface MediaPreviewsProps {
 }
 
 function MediaPreviews({ attachments }: MediaPreviewsProps) {
+  if (attachments.length === 1) {
+    return (
+      <div className="relative mx-auto aspect-auto">
+        <MediaPreview media={attachments[0]} />
+      </div>
+    );
+  }
+
   return (
-    <div
-      className={cn(
-        "flex flex-col gap-3",
-        attachments.length > 1 && "sm:grid sm:grid-cols-2",
-      )}
+    <Carousel
+      className="w-full"
+      opts={{ align: "center", containScroll: "trimSnaps" }}
     >
-      {attachments.map((m) => (
-        <MediaPreview key={m.id} media={m} />
-      ))}
-    </div>
+      <CarouselContent className="-ml-2">
+        {attachments.map((attachment) => (
+          <CarouselItem
+            key={attachment.id}
+            className="grid w-fit place-content-center pl-2"
+          >
+            <MediaPreview media={attachment} />
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      <CarouselPrevious className="left-2" />
+      <CarouselNext className="right-2" />
+    </Carousel>
   );
 }
 
 interface MediaPreviewProps {
   media: Media;
+  maintainSquareAspect?: boolean;
 }
 
-function MediaPreview({ media }: MediaPreviewProps) {
+function MediaPreview({
+  media,
+  maintainSquareAspect = false,
+}: MediaPreviewProps) {
   if (media.type === "IMAGE") {
     return (
       <Image
         src={media.url}
         alt="Attachment"
-        width={500}
-        height={500}
-        className="mx-auto size-fit max-h-[30rem] rounded-2xl"
+        width={0}
+        height={0}
+        sizes="100vw"
+        className={cn(
+          "mx-auto my-auto h-auto max-h-[30rem] w-fit rounded-2xl border",
+          maintainSquareAspect && "aspect-square object-cover",
+        )}
       />
     );
   }
@@ -103,7 +133,10 @@ function MediaPreview({ media }: MediaPreviewProps) {
         <video
           src={media.url}
           controls
-          className="mx-auto size-fit max-h-[30rem] rounded-2xl"
+          className={cn(
+            "aspect-auto h-auto max-h-[30rem] w-full rounded-2xl border",
+            maintainSquareAspect && "aspect-square object-cover",
+          )}
         />
       </div>
     );
