@@ -11,7 +11,7 @@ import "./styles.css";
 import useMediaUpload, { Attachment } from "./useMediaUpload";
 import { Button } from "@/components/ui/button";
 import { Image as ImageIcon, Spinner, X } from "@mynaui/icons-react";
-import { useRef } from "react";
+import { ClipboardEvent, useRef } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import {
@@ -21,6 +21,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { useDropzone } from "@uploadthing/react";
 
 export default function PostEditor() {
   const { user } = useSession();
@@ -35,6 +36,13 @@ export default function PostEditor() {
     removeAttachment,
     reset: resetMediaUploads,
   } = useMediaUpload();
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop: startUpload,
+  });
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { onClick, ...rootProps } = getRootProps();
 
   const editor = useEditor({
     extensions: [
@@ -63,14 +71,28 @@ export default function PostEditor() {
     );
   }
 
+  function onPaste(e: ClipboardEvent<HTMLInputElement>) {
+    const files = Array.from(e.clipboardData.items)
+      .filter((item) => item.kind === "file")
+      .map((item) => item.getAsFile()) as File[];
+    startUpload(files);
+  }
+
   return (
     <div className="flex flex-col gap-5 rounded-3xl border bg-card p-5 shadow-sm">
       <div className="flex gap-5">
         <UserAvatar user={user} className="hidden sm:inline md:h-14 md:w-14" />
-        <EditorContent
-          editor={editor}
-          className="max-h-[20rem] w-full overflow-y-auto rounded-2xl bg-background px-5"
-        />
+        <div {...rootProps} className="w-full">
+          <EditorContent
+            editor={editor}
+            className={cn(
+              "max-h-[20rem] w-full overflow-y-auto rounded-2xl bg-background px-5 pb-8 pt-2",
+              isDragActive && "outline-dashed outline-primary",
+            )}
+            onPaste={onPaste}
+          />
+          <input {...getInputProps()} />
+        </div>
       </div>
       {!!attachments.length && (
         <AttachmentPreviews
@@ -78,7 +100,7 @@ export default function PostEditor() {
           removeAttachment={removeAttachment}
         />
       )}
-      <div className="flex justify-end">
+      <div className="flex items-center justify-end gap-1">
         {isUploading && (
           <>
             <span className="text-sm">{uploadProgress ?? 0}%</span>
@@ -120,8 +142,9 @@ function AddAttachmentsButton({
         size={"icon"}
         disabled={disabled}
         onClick={() => fileInputRef.current?.click()}
+        className="hover:bg-primary/30"
       >
-        <ImageIcon size={20} />
+        <ImageIcon size={20} className="text-primary" />
       </Button>
       <input
         type="file"
@@ -249,10 +272,10 @@ function AttachmentPreview({
         <Button
           variant={"ghost"}
           size={"icon"}
-          className="absolute right-3 top-3 rounded-full bg-foreground p-1.5 text-background transition-colors hover:bg-foreground/60"
+          className="absolute right-3 top-3 rounded-full bg-black/80 p-1.5 text-background transition-colors hover:bg-black/60"
           onClick={onRemoveClick}
         >
-          <X size={20} />
+          <X size={20} className="text-white" />
         </Button>
       )}
     </div>
