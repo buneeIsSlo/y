@@ -1,6 +1,7 @@
 import { validateRequest } from "@/auth";
 import FollowButton from "@/components/FollowButton";
 import Linkify from "@/components/Linkify";
+import NavigateBackButton from "@/components/NavigateBackButton";
 import Post from "@/components/posts/Post";
 import UserAvatar from "@/components/UserAvatar";
 import UserTooltip from "@/components/UserTooltip";
@@ -55,8 +56,12 @@ export default async function Page(props: PageProps) {
   const post = await getPost(postId, user.id);
 
   return (
-    <main className="flex w-full min-w-0 gap-4">
-      <div className="w-full min-w-0 space-y-5">
+    <main className="flex h-[200vh] w-full min-w-0 gap-4">
+      <div className="w-full min-w-0">
+        <div className="mb-2 flex items-center gap-5 rounded-2xl border bg-card px-3 py-2">
+          <NavigateBackButton fallbackRoute={`/users/${post.user.username}`} />
+          <p className="text-xl font-bold">Post</p>
+        </div>
         <Post post={post} />
       </div>
       <div className="relative hidden flex-shrink-0 lg:block lg:w-80">
