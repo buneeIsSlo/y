@@ -17,6 +17,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "../ui/carousel";
+import LikeButton from "./LikeButton";
 
 interface PostProps {
   post: PostData;
@@ -65,6 +66,17 @@ export default function Post({ post }: PostProps) {
       {!!post.attachments.length && (
         <MediaPreviews attachments={post.attachments} />
       )}
+      <div>
+        <LikeButton
+          postId={post.id}
+          initialState={{
+            likes: post._count.likes,
+            isLikedByUser: post.likes.some(
+              (like) => like.userId === post.userId,
+            ),
+          }}
+        />
+      </div>
     </article>
   );
 }
