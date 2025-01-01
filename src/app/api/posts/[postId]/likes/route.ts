@@ -60,6 +60,7 @@ export async function POST(
 
   const { postId } = params;
 
+  console.log(">>>>>>>>>>>>>>", postId);
   try {
     const { user: loggedInUser } = await validateRequest();
 
@@ -83,6 +84,9 @@ export async function POST(
 
     return new Response();
   } catch (error) {
+    console.log(
+      "===============> Hold on something ain't right<=======================",
+    );
     console.error(error);
     return Response.json({ error: "Internal server error" }, { status: 500 });
   }

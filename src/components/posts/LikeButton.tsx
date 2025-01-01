@@ -8,7 +8,6 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 
 interface LikeButtonProps {
@@ -55,14 +54,27 @@ export default function LikeButton({ postId, initialState }: LikeButtonProps) {
   });
 
   return (
-    <Button variant={"ghost"} onClick={() => mutate()}>
-      <Heart
+    <button
+      onClick={() => mutate()}
+      className="group flex items-center gap-1 p-1 text-muted-foreground hover:text-rose-600"
+    >
+      <span className="relative grid place-content-center">
+        <span className="absolute inset-0 -m-1.5 rounded-md group-hover:bg-rose-600/30" />
+        <Heart
+          className={cn(
+            "size-5",
+            data.isLikedByUser && "fill-rose-600 text-rose-600",
+          )}
+        />
+      </span>
+      <span
         className={cn(
-          "size-5",
-          data.isLikedByUser && "fill-rose-600 text-rose-600",
+          "text-sm font-medium tabular-nums",
+          data.isLikedByUser && "text-rose-600",
         )}
-      />
-      <span className="text-sm font-medium tabular-nums">{data.likes}</span>
-    </Button>
+      >
+        {data.likes}
+      </span>
+    </button>
   );
 }
