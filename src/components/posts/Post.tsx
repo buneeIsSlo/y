@@ -18,6 +18,7 @@ import {
   CarouselPrevious,
 } from "../ui/carousel";
 import LikeButton from "./LikeButton";
+import BookmarkButton from "./BookmarkButton";
 
 interface PostProps {
   post: PostData;
@@ -66,13 +67,22 @@ export default function Post({ post }: PostProps) {
       {!!post.attachments.length && (
         <MediaPreviews attachments={post.attachments} />
       )}
-      <div>
+      <div className="flex items-center justify-between">
         <LikeButton
           postId={post.id}
           initialState={{
             likes: post._count.likes,
             isLikedByUser: post.likes.some(
               (like) => like.userId === post.userId,
+            ),
+          }}
+        />
+        <BookmarkButton
+          postId={post.id}
+          initialState={{
+            bookmarks: post._count.bookmarks,
+            isBookmarkedByUser: post.bookmarks.some(
+              (bookmark) => bookmark.userId === post.userId,
             ),
           }}
         />
