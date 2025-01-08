@@ -56,6 +56,7 @@ export function getPostDataInclude(loggedInUserId: string) {
       select: {
         likes: true,
         bookmarks: true,
+        comments: true,
       },
     },
   } satisfies Prisma.PostInclude;
@@ -73,7 +74,7 @@ export interface PostsPage {
 export function getCommentDataInclude(loggedInUserId: string) {
   return {
     user: {
-      select: getPostDataInclude(loggedInUserId),
+      select: getUserDataSelect(loggedInUserId),
     },
   } satisfies Prisma.CommentInclude;
 }
