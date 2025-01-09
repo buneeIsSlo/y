@@ -19,6 +19,9 @@ import {
 } from "../ui/carousel";
 import LikeButton from "./LikeButton";
 import BookmarkButton from "./BookmarkButton";
+import { Message } from "@mynaui/icons-react";
+import { useState } from "react";
+import Comments from "../comments/Comments";
 
 interface PostProps {
   post: PostData;
@@ -26,6 +29,7 @@ interface PostProps {
 
 export default function Post({ post }: PostProps) {
   const { user } = useSession();
+  const [showComments, setShowComments] = useState(false);
 
   return (
     <article className="group/post space-y-3 rounded-3xl border bg-card p-5 shadow-sm">
@@ -68,15 +72,21 @@ export default function Post({ post }: PostProps) {
         <MediaPreviews attachments={post.attachments} />
       )}
       <div className="flex items-center justify-between">
-        <LikeButton
-          postId={post.id}
-          initialState={{
-            likes: post._count.likes,
-            isLikedByUser: post.likes.some(
-              (like) => like.userId === post.userId,
-            ),
-          }}
-        />
+        <div className="flex items-center gap-5">
+          <LikeButton
+            postId={post.id}
+            initialState={{
+              likes: post._count.likes,
+              isLikedByUser: post.likes.some(
+                (like) => like.userId === post.userId,
+              ),
+            }}
+          />
+          <CommentButton
+            onClick={() => setShowComments(!showComments)}
+            post={post}
+          />
+        </div>
         <BookmarkButton
           postId={post.id}
           initialState={{
@@ -87,6 +97,7 @@ export default function Post({ post }: PostProps) {
           }}
         />
       </div>
+      {showComments && <Comments post={post} />}
     </article>
   );
 }
@@ -169,5 +180,27 @@ function MediaPreview({
     <p className="rounded-full bg-destructive-foreground p-1 text-destructive">
       Unsupported media type
     </p>
+  );
+}
+
+interface CommentButtonProps {
+  post: PostData;
+  onClick: () => void;
+}
+
+function CommentButton({ post, onClick }: CommentButtonProps) {
+  return (
+    <button
+      onClick={onClick}
+      className="group flex items-center gap-1 p-1 text-muted-foreground hover:text-primary"
+    >
+      <span className="relative grid place-content-center">
+        <span className="absolute inset-0 -m-1.5 rounded-md group-hover:bg-primary/30" />
+        <Message className={"size-5"} />
+      </span>
+      <span className={cn("text-sm font-medium tabular-nums")}>
+        {post._count.comments}
+      </span>
+    </button>
   );
 }
