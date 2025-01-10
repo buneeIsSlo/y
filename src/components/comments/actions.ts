@@ -29,3 +29,24 @@ export async function submitComment({
 
   return newComment;
 }
+
+export async function deleteComment(id: string) {
+  const { user } = await validateRequest();
+
+  if (!user) throw new Error("Unauthorized request");
+
+  const comment = await prisma.comment.findUnique({
+    where: { id },
+  });
+
+  if (!comment) throw new Error("Comment not found");
+
+  if (comment.userId !== user.id) throw new Error("Unauthorized request");
+
+  const deleteComment = await prisma.comment.delete({
+    where: { id },
+    include: getCommentDataInclude(user.id),
+  });
+
+  return deleteComment;
+}
