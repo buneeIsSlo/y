@@ -31,22 +31,25 @@ export default function CommentInput({ post }: CommentInputProps) {
   }
 
   return (
-    <form onSubmit={onSubmit} className="flex w-full items-center gap-2">
+    <form
+      onSubmit={onSubmit}
+      className="items-full flex flex-col items-center gap-2"
+    >
       <Textarea
         placeholder="Post your reply..."
         value={input}
+        className="w-full"
         onChange={(e) => setInput(e.target.value)}
         autoFocus
         maxLength={200}
       />
       <Button
         type="submit"
-        variant={"ghost"}
-        size={"icon"}
+        variant={"secondary"}
+        className="w-auto self-end"
         disabled={!input.trim() || mutation.isPending}
-        title="Reply"
       >
-        {!mutation.isPending ? <Send /> : <Spinner className="animate-spin" />}
+        {!mutation.isPending ? "Reply" : <Spinner className="animate-spin" />}
       </Button>
     </form>
   );
