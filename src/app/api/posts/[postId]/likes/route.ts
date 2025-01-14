@@ -94,7 +94,7 @@ export async function POST(
       }),
       ...(loggedInUser.id === post.userId
         ? [
-            prisma.notifications.create({
+            prisma.notification.create({
               data: {
                 issuerId: loggedInUser.id,
                 recipientId: post.userId,
@@ -146,7 +146,7 @@ export async function DELETE(
           postId,
         },
       }),
-      prisma.notifications.deleteMany({
+      prisma.notification.deleteMany({
         where: {
           issuerId: loggedInUser.id,
           recipientId: post.userId,
