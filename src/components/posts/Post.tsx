@@ -77,9 +77,7 @@ export default function Post({ post }: PostProps) {
             postId={post.id}
             initialState={{
               likes: post._count.likes,
-              isLikedByUser: post.likes.some(
-                (like) => like.userId === post.userId,
-              ),
+              isLikedByUser: post.likes.some((like) => like.userId === user.id),
             }}
           />
           <CommentButton
@@ -92,7 +90,7 @@ export default function Post({ post }: PostProps) {
           initialState={{
             bookmarks: post._count.bookmarks,
             isBookmarkedByUser: post.bookmarks.some(
-              (bookmark) => bookmark.userId === post.userId,
+              (bookmark) => bookmark.userId === user.id,
             ),
           }}
         />
