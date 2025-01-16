@@ -37,7 +37,7 @@ export async function GET(
     });
 
     if (!post) {
-      return Response.json({ error: "Page not found" }, { status: 404 });
+      return Response.json({ error: "Post not found" }, { status: 404 });
     }
 
     const data: LikeInfo = {
@@ -92,7 +92,7 @@ export async function POST(
         },
         update: {},
       }),
-      ...(loggedInUser.id === post.userId
+      ...(loggedInUser.id !== post.userId
         ? [
             prisma.notification.create({
               data: {
