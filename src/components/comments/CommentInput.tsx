@@ -2,7 +2,7 @@ import { PostData } from "@/lib/types";
 import React, { useState } from "react";
 import { useSubmitCommentMutation } from "./mutations";
 import { Button } from "../ui/button";
-import { Send, Spinner } from "@mynaui/icons-react";
+import { Spinner } from "@mynaui/icons-react";
 import { Textarea } from "../ui/textarea";
 
 interface CommentInputProps {
