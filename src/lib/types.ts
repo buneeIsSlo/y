@@ -126,3 +126,7 @@ export interface BookmarkInfo {
   bookmarks: number;
   isBookmarkedByUser: boolean;
 }
+
+export interface NotificationCountInfo {
+  unreadCount: number;
+}
