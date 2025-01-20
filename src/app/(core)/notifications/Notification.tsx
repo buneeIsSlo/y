@@ -1,7 +1,7 @@
 import UserAvatar from "@/components/UserAvatar";
 import { NotificationData } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { HeartSolid, MessageSolid, UserSolid } from "@mynaui/icons-react";
+import { HeartSolid, Message, UserSolid } from "@mynaui/icons-react";
 import { NotificationType } from "@prisma/client";
 import Link from "next/link";
 
@@ -21,7 +21,7 @@ export default function Notification({ notification }: NotificationProps) {
     },
     COMMENT: {
       message: `${notification.issuer.displayName} commented on your post`,
-      icon: <MessageSolid className="size-7 text-primary" />,
+      icon: <Message className="size-7 text-primary" />,
       href: `/posts/${notification.postId}`,
     },
     LIKE: {
@@ -37,7 +37,8 @@ export default function Notification({ notification }: NotificationProps) {
     <Link href={href} className="block">
       <article
         className={cn(
-          "py-5 px-5 flex gap-3 rounded-2xl border bg-card transition-colors hover:bg-card/70",
+          "flex gap-3 rounded-2xl border bg-card px-5 py-5 transition-colors hover:bg-card/50",
+          !notification.read && "bg-primary/20",
         )}
       >
         <div className="my-1">{icon}</div>

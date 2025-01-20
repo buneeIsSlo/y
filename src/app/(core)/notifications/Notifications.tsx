@@ -75,7 +75,7 @@ export default function Notifications() {
   }
   return (
     <InfiniteScrollContainer
-      className="space-y-5"
+      className="space-y-4"
       onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}
     >
       {notifications.map((notification) => (
