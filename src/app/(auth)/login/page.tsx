@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import LoginForm from "./LoginForm";
 import { Separator } from "@/components/ui/seperator";
+import GoogleAuthButton from "../GoogleAuthButton";
 
 export const metadata: Metadata = {
   title: "Log In",
@@ -30,9 +31,10 @@ export default function Login() {
               }
               className="my-7 h-[0.5px]"
             />
-            <Button variant="outline" className="w-full">
+            {/* <Button variant="outline" className="w-full">
               Continue with Google
-            </Button>
+            </Button> */}
+            <GoogleAuthButton />
           </div>
           <div className="mt-4 text-center text-sm">
             Don&apos;t have an account?{" "}
