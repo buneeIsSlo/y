@@ -73,7 +73,7 @@ export async function GET(req: NextRequest) {
         id: userId,
         username,
         displayName: googleUser.name,
-        email: googleUser.id,
+        googleId: googleUser.id,
       },
     });
 
