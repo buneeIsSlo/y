@@ -9,6 +9,7 @@ import FollowButton from "./FollowButton";
 import { Skeleton } from "./ui/skeleton";
 import UserAvatar from "./UserAvatar";
 import UserTooltip from "./UserTooltip";
+import SearchField from "./SearchField";
 
 export default function TrendingSidebar() {
   return (
@@ -16,6 +17,7 @@ export default function TrendingSidebar() {
       <div className="sticky top-0 h-svh w-full">
         <Suspense fallback={<TrendingSidebarSkeleton />}>
           <div className="flex flex-col gap-4">
+            <SearchField />
             <WhoToFollow />
             <TrendingTopics />
           </div>
