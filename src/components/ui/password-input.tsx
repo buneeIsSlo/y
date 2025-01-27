@@ -1,10 +1,10 @@
 import { cn } from "@/lib/utils";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeSlash } from "@mynaui/icons-react";
 import React, { useState } from "react";
 import { Input, InputProps } from "./input";
 
 const PasswordInput = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, ...props }, ref) => {
+  ({ className, ...props }, ref) => {
     const [showPassword, setShowPassword] = useState(false);
 
     return (
@@ -22,7 +22,7 @@ const PasswordInput = React.forwardRef<HTMLInputElement, InputProps>(
           className="absolute right-3 top-1/2 -translate-y-1/2 transform text-gray-400 hover:text-muted-foreground"
         >
           {showPassword ? (
-            <EyeOff className="size-5" />
+            <EyeSlash className="size-5" />
           ) : (
             <Eye className="size-5" />
           )}

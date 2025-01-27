@@ -4,7 +4,7 @@ import SearchResults from "./SearchResults";
 import { Metadata } from "next";
 
 interface PageProps {
-  searchParams: { q: string };
+  searchParams: Promise<{ q: string }>;
 }
 
 export async function generateMetadata({

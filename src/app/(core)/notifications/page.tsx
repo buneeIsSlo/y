@@ -3,7 +3,7 @@ import Notifications from "./Notifications";
 import TrendingSidebar from "@/components/TrendingSidebar";
 import NavigateBackButton from "@/components/NavigateBackButton";
 
-export const metadat: Metadata = {
+export const metadata: Metadata = {
   title: "Notifications",
 };
 
