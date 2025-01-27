@@ -14,6 +14,14 @@ const nextConfig = {
       },
     ],
   },
+  rewrites: () => {
+    return [
+      {
+        source: "/topic/:tag",
+        destination: "/search?q=%23:tag",
+      }
+    ]
+  }
 };
 
 export default nextConfig;

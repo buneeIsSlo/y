@@ -44,7 +44,7 @@ function LinkifyHashtag({ children }: LinkifyProps) {
       component={(match, key) => (
         <Link
           key={key}
-          href={`/trending/${match.slice(1)}`}
+          href={`/topic/${match.slice(1)}`}
           className="text-primary hover:underline"
         >
           {match}
