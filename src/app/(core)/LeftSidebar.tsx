@@ -2,7 +2,6 @@ import { Home, Envelope, Calendar, Bookmark, Cog } from "@mynaui/icons-react";
 import { Button } from "@/components/ui/button";
 import UserButton from "@/components/UserButton";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
-import Link from "next/link";
 import {
   Tooltip,
   TooltipContent,
@@ -12,6 +11,9 @@ import {
 import { validateRequest } from "@/auth";
 import prisma from "@/lib/prisma";
 import NotificationsButton from "./NotificationsButton";
+import Image from "next/image";
+import logo from "@/assets/y_light.svg";
+import Link from "next/link";
 
 export default async function LeftSidebar() {
   const { user } = await validateRequest();
@@ -68,6 +70,20 @@ export default async function LeftSidebar() {
         <div className="flex h-full w-full flex-col justify-between rounded-3xl border bg-card/40 px-2 py-4 backdrop-blur-3xl">
           <TooltipProvider>
             <ul className="w-fit lg:w-full">
+              <li className="my-1">
+                <Button variant={"ghost"} className="py-6 lg:w-fit">
+                  <Link
+                    href={"/"}
+                    className="flex items-center justify-center rounded-sm hover:bg-accent"
+                  >
+                    <Image
+                      src={logo}
+                      alt="y app"
+                      className="size-5 invert dark:invert-0 lg:size-7"
+                    />
+                  </Link>
+                </Button>
+              </li>
               {items.map((item) => (
                 <li key={item.title}>
                   <Tooltip>
