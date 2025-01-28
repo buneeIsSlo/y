@@ -5,6 +5,7 @@ import Link from "next/link";
 import SignUpForm from "./SignUpForm";
 import { Separator } from "@/components/ui/seperator";
 import logo from "@/assets/y_light.svg";
+import GoogleAuthButton from "../GoogleAuthButton";
 
 export const metadata: Metadata = {
   title: "Sign Up",
@@ -38,9 +39,7 @@ export default function Signup() {
               }
               className="my-7 h-[0.5px]"
             />
-            <Button variant="outline" className="w-full">
-              Continue with Google
-            </Button>
+            <GoogleAuthButton />
           </div>
           <div className="mt-4 text-center text-sm">
             Already have an account?{" "}

@@ -38,9 +38,6 @@ export default function Login() {
               }
               className="my-7 h-[0.5px]"
             />
-            {/* <Button variant="outline" className="w-full">
-              Continue with Google
-            </Button> */}
             <GoogleAuthButton />
           </div>
           <div className="mt-4 text-center text-sm">
