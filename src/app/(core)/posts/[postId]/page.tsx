@@ -56,8 +56,8 @@ export default async function Page(props: PageProps) {
   const post = await getPost(postId, user.id);
 
   return (
-    <main className="flex w-full min-w-0 gap-4">
-      <div className="w-full min-w-0">
+    <main className="flex w-full min-w-0 gap-4 py-4">
+      <div className="w-full min-w-0 sm:max-w-[600px] xl:max-w-none">
         <div className="mb-2 flex items-center gap-5 rounded-2xl border bg-card px-3 py-2">
           <NavigateBackButton fallbackRoute={`/users/${post.user.username}`} />
           <p className="text-xl font-bold">Post</p>

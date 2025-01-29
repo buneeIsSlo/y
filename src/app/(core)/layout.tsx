@@ -16,7 +16,7 @@ export default async function Layout({
     <SessionProvider value={session}>
       <div className="mx-auto flex max-w-7xl gap-4">
         <LeftSidebar />
-        <div className="min-w-0 flex-1 py-4">{children}</div>
+        <div className="min-w-0 flex-1">{children}</div>
       </div>
     </SessionProvider>
   );

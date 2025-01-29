@@ -69,7 +69,7 @@ export default async function Page(props: PageProps) {
 
   return (
     <main className="flex gap-4">
-      <div className="w-full min-w-0 space-y-5">
+      <div className="w-full min-w-0 space-y-4 py-4 sm:max-w-[600px] xl:max-w-none">
         <UserProfile user={user} loggedInUserId={loggedInUser.id} />
         <UserPostsFeed userId={user.id} />
       </div>

@@ -13,15 +13,17 @@ import SearchField from "./SearchField";
 
 export default function TrendingSidebar() {
   return (
-    <div className="relative hidden flex-shrink-0 lg:block lg:w-80">
-      <div className="sticky top-0 h-svh w-full">
-        <Suspense fallback={<TrendingSidebarSkeleton />}>
-          <div className="flex flex-col gap-4">
-            <SearchField />
-            <WhoToFollow />
-            <TrendingTopics />
-          </div>
-        </Suspense>
+    <div className="relative hidden flex-shrink-0 lg:w-80 xl:block">
+      <div className="sticky top-0 h-svh w-full py-4">
+        <div>
+          <Suspense fallback={<TrendingSidebarSkeleton />}>
+            <div className="flex flex-col gap-4">
+              <SearchField />
+              <WhoToFollow />
+              <TrendingTopics />
+            </div>
+          </Suspense>
+        </div>
       </div>
     </div>
   );
@@ -33,7 +35,7 @@ function TrendingSidebarSkeleton() {
       {/* Who to follow section */}
       <div className="w-full space-y-5 rounded-2xl border bg-card p-5 shadow-sm">
         <Skeleton className="h-6 w-32" />
-        {Array.from({ length: 5 }).map((_, i) => (
+        {Array.from({ length: 3 }).map((_, i) => (
           <Skeleton key={i} className="h-10 w-full" />
         ))}
       </div>
@@ -41,7 +43,7 @@ function TrendingSidebarSkeleton() {
       {/* Trending topics section */}
       <div className="space-y-5 rounded-2xl bg-card p-5 shadow-sm">
         <Skeleton className="h-6 w-32" />
-        {Array.from({ length: 5 }).map((_, i) => (
+        {Array.from({ length: 4 }).map((_, i) => (
           <Skeleton key={i} className="h-4 w-full" />
         ))}
       </div>
@@ -67,7 +69,7 @@ async function WhoToFollow() {
       },
     },
     select: getUserDataSelect(user.id),
-    take: 5,
+    take: 3,
   });
 
   if (!usersToFollow.length) return;
@@ -119,7 +121,7 @@ const getTrendingTopics = unstable_cache(
     FROM posts
     GROUP BY (hashtag)
     ORDER BY count DESC, hashtag ASC
-    LIMIT 5
+    LIMIT 4
 `;
 
     return result.map((row) => ({
