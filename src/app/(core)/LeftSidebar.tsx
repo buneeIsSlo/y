@@ -1,7 +1,6 @@
 import { Home, Envelope, Calendar, Bookmark, Cog } from "@mynaui/icons-react";
 import { Button } from "@/components/ui/button";
 import UserButton from "@/components/UserButton";
-import ThemeSwitcher from "@/components/ThemeSwitcher";
 import {
   Tooltip,
   TooltipContent,
@@ -114,7 +113,6 @@ export default async function LeftSidebar() {
             </ul>
           </TooltipProvider>
           <div>
-            <ThemeSwitcher />
             <UserButton />
           </div>
         </div>
