@@ -3,16 +3,19 @@
 import { Button } from "@/components/ui/button";
 import kyInstance from "@/lib/ky";
 import { NotificationCountInfo } from "@/lib/types";
-import { Bell } from "@mynaui/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 
 interface NotificationsButtonProps {
   initialState: NotificationCountInfo;
+  icon: React.ReactElement;
+  title: React.ReactElement;
 }
 
 export default function NotificationsButton({
   initialState,
+  icon,
+  title,
 }: NotificationsButtonProps) {
   const { data } = useQuery({
     queryKey: ["unread-notifications-count"],
@@ -32,14 +35,14 @@ export default function NotificationsButton({
     >
       <Link href={"/notifications"} className="flex gap-2">
         <div className="relative">
-          <Bell className="h-5 w-5 stroke-2" />
+          {icon}
           {!!data.unreadCount && (
             <span className="absolute -right-1 -top-1 rounded-full bg-primary px-1 text-xs font-medium tabular-nums text-primary-foreground">
               {data.unreadCount}
             </span>
           )}
         </div>
-        <span className="hidden lg:inline">Notifications</span>
+        {title}
       </Link>
     </Button>
   );
