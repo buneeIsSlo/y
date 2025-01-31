@@ -31,21 +31,40 @@ export default function TrendingSidebar() {
 
 function TrendingSidebarSkeleton() {
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col gap-4">
+      {/* Search field skeleton */}
+      <Skeleton className="h-10 w-full rounded-2xl" />
+
       {/* Who to follow section */}
-      <div className="w-full space-y-5 rounded-2xl border bg-card p-5 shadow-sm">
+      <div className="w-full space-y-5 rounded-3xl border bg-card/40 p-5 shadow-sm backdrop-blur-3xl">
         <Skeleton className="h-6 w-32" />
-        {Array.from({ length: 3 }).map((_, i) => (
-          <Skeleton key={i} className="h-10 w-full" />
-        ))}
+        <div className="flex flex-col gap-3">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <div key={i} className="flex items-center justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <Skeleton className="h-10 w-10 rounded-full" />
+                <div className="space-y-2">
+                  <Skeleton className="h-4 w-24" />
+                  <Skeleton className="h-3 w-16" />
+                </div>
+              </div>
+              <Skeleton className="h-9 w-20 rounded-full" />
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Trending topics section */}
-      <div className="space-y-5 rounded-2xl bg-card p-5 shadow-sm">
+      <div className="space-y-5 rounded-3xl border bg-card/40 p-5 shadow-sm backdrop-blur-3xl">
         <Skeleton className="h-6 w-32" />
-        {Array.from({ length: 4 }).map((_, i) => (
-          <Skeleton key={i} className="h-4 w-full" />
-        ))}
+        <div className="flex flex-col gap-3">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="space-y-1">
+              <Skeleton className="h-4 w-32" />
+              <Skeleton className="h-3 w-20" />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -53,7 +72,6 @@ function TrendingSidebarSkeleton() {
 
 async function WhoToFollow() {
   const { user } = await validateRequest();
-  // await new Promise((res) => setTimeout(res, 10000));
 
   if (!user) return null;
 

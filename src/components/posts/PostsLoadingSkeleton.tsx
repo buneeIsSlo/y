@@ -6,6 +6,8 @@ export default function PostsLoadingSkelton() {
       <PostSkeleton />
       <PostSkeleton />
       <PostSkeleton />
+      <PostSkeleton />
+      <PostSkeleton />
     </div>
   );
 }
