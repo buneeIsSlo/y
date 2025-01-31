@@ -75,7 +75,7 @@ async function WhoToFollow() {
   if (!usersToFollow.length) return;
 
   return (
-    <div className="w-full space-y-5 rounded-3xl border bg-card p-5">
+    <div className="w-full space-y-5 rounded-3xl border bg-card/40 p-5 shadow-sm backdrop-blur-3xl">
       <h2 className="text-lg font-bold">Who to follow</h2>
       <div className="flex flex-col gap-3">
         {usersToFollow.map((user) => (
@@ -139,7 +139,7 @@ async function TrendingTopics() {
   const trendingTopics = await getTrendingTopics();
 
   return (
-    <div className="space-y-5 rounded-3xl border bg-card p-5">
+    <div className="space-y-5 rounded-3xl border bg-card/40 p-5 shadow-sm backdrop-blur-3xl">
       <h2 className="text-lg font-bold">Trending topics</h2>
       {!trendingTopics.length && (
         <p className="text-muted-foreground">Not enough topics to show</p>

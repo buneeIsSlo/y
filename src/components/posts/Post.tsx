@@ -32,7 +32,7 @@ export default function Post({ post }: PostProps) {
   const [showComments, setShowComments] = useState(false);
 
   return (
-    <article className="group/post space-y-3 rounded-3xl border bg-card p-5 shadow-sm">
+    <article className="group/post space-y-3 rounded-3xl border bg-card/40 p-5 shadow-sm backdrop-blur-3xl">
       <div className="flex justify-between gap-3">
         <div className="flex flex-wrap gap-3">
           <UserTooltip user={post.user}>

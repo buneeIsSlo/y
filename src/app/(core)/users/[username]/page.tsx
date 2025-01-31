@@ -93,7 +93,7 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
 
   return (
     <div>
-      <div className="mb-2 flex items-center gap-5 rounded-2xl border px-3 py-1">
+      <div className="mb-2 flex items-center gap-5 rounded-2xl border bg-card/70 px-3 py-1 backdrop-blur-3xl">
         <NavigateBackButton />
         <div className="">
           <h1 className="text-xl font-bold">{user.displayName}</h1>

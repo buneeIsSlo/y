@@ -58,7 +58,7 @@ export default async function Page(props: PageProps) {
   return (
     <main className="flex w-full min-w-0 gap-4 py-4">
       <div className="w-full min-w-0 sm:max-w-[600px] xl:max-w-none">
-        <div className="mb-2 flex items-center gap-5 rounded-2xl border bg-card px-3 py-2">
+        <div className="mb-2 flex items-center gap-5 rounded-2xl border bg-card/70 px-3 py-2 backdrop-blur-3xl">
           <NavigateBackButton fallbackRoute={`/users/${post.user.username}`} />
           <p className="text-xl font-bold">Post</p>
         </div>
@@ -85,7 +85,7 @@ async function UserInfoSidebar({ user }: UserInfoSidebarProps) {
   if (!loggedInUser) return null;
 
   return (
-    <div className="space-y-5 rounded-2xl border bg-card p-5 shadow-sm">
+    <div className="space-y-5 rounded-2xl border bg-card/40 p-5 shadow-sm backdrop-blur-3xl">
       <div className="text-xl font-bold">Relevant people</div>
       <UserTooltip user={user}>
         <Link

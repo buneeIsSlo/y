@@ -54,7 +54,7 @@ export default async function LeftSidebar() {
   return (
     <div className="relative w-fit lg:w-80">
       <div className="sticky top-0 h-svh w-fit py-4 pl-4 lg:block lg:w-full lg:pl-0">
-        <div className="flex h-full w-full flex-col justify-between rounded-3xl border bg-card/40 px-2 py-4 backdrop-blur-3xl">
+        <div className="flex h-full w-full flex-col justify-between rounded-3xl border bg-card/40 px-2 py-4 shadow-sm backdrop-blur-3xl">
           <ul className="w-fit lg:w-full">
             <li className="my-1">
               <Button variant={"ghost"} className="py-6 lg:w-fit">
