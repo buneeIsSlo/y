@@ -7,6 +7,7 @@ import { Popover, PopoverTrigger, PopoverContent } from "./ui/popover";
 import { Ellipsis } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import UserAvatar from "./UserAvatar";
+import { Logout } from "@mynaui/icons-react";
 
 export default function UserButton() {
   const { user } = useSession();
@@ -33,14 +34,15 @@ export default function UserButton() {
       </PopoverTrigger>
       <PopoverContent>
         <Button
-          variant={"destructive"}
+          variant={"ghost"}
           onClick={() => {
             queryClient.clear();
             logout();
           }}
-          className="w-full"
+          className="flex w-full items-center justify-between"
         >
-          Log out
+          <span className="font-semibold text-destructive">Log out</span>
+          <Logout className="size-5 text-destructive" />
         </Button>
       </PopoverContent>
     </Popover>

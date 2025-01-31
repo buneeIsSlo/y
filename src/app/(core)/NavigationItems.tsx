@@ -19,13 +19,21 @@ import {
   EnvelopeSolid,
   Bell,
   BellSolid,
+  User,
+  UserSolid,
 } from "@mynaui/icons-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import NotificationsButton from "./NotificationsButton";
 import { NotificationCountInfo } from "@/lib/types";
 
-type Icon = "home" | "notifications" | "messages" | "bookmarks" | "settings";
+type Icon =
+  | "home"
+  | "notifications"
+  | "messages"
+  | "bookmarks"
+  | "profile"
+  | "settings";
 
 export interface NavItem {
   title: string;
@@ -47,6 +55,7 @@ const ICON_MAP: Record<
   notifications: { outline: Bell, solid: BellSolid },
   messages: { outline: Envelope, solid: EnvelopeSolid },
   bookmarks: { outline: Bookmark, solid: BookmarkSolid },
+  profile: { outline: User, solid: UserSolid },
   settings: { outline: Cog, solid: CogSolid },
 } as const;
 
@@ -68,7 +77,7 @@ export default function NavigationItems({
           return (
             <li key={item.title}>
               <Tooltip>
-                <TooltipTrigger asChild>
+                <TooltipTrigger className="w-full">
                   {item.isNotification ? (
                     <NotificationsButton
                       initialState={unreadNotificationsCount}
