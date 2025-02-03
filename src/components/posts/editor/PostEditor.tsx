@@ -79,14 +79,17 @@ export default function PostEditor() {
   }
 
   return (
-    <div className="flex flex-col gap-5 rounded-3xl border bg-card p-5 shadow-sm">
-      <div className="flex gap-5">
-        <UserAvatar user={user} className="hidden sm:inline md:h-14 md:w-14" />
+    <div className="flex flex-col gap-4 rounded-3xl border bg-card p-2 shadow-sm">
+      <div className="flex gap-3 rounded-2xl bg-zinc-100 px-4 dark:bg-zinc-900">
+        <UserAvatar
+          user={user}
+          className="mt-2 hidden sm:inline md:h-14 md:w-14"
+        />
         <div {...rootProps} className="w-full">
           <EditorContent
             editor={editor}
             className={cn(
-              "max-h-[20rem] w-full overflow-y-auto rounded-2xl bg-background px-5 pb-8 pt-2",
+              "max-h-[20rem] w-full overflow-y-auto rounded-2xl px-5 pb-20 pt-2",
               isDragActive && "outline-dashed outline-primary",
             )}
             onPaste={onPaste}
@@ -114,7 +117,7 @@ export default function PostEditor() {
         <LoadingButton
           loading={mutation.isPending}
           onClick={onSubmit}
-          disabled={!input.trim()}
+          disabled={!input.trim() || isUploading}
           className="min-w-20"
         >
           Post
