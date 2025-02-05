@@ -42,12 +42,16 @@ export interface NavItem {
   isNotification?: boolean;
 }
 
+type TooltipSide = "top" | "right" | "left" | "bottom" | undefined;
+
 interface NavigationItemsProps {
   items: NavItem[];
   unreadNotificationsCount: NotificationCountInfo;
+  tooltipSide: TooltipSide;
+  className: string;
 }
 
-const ICON_MAP: Record<
+export const ICON_MAP: Record<
   Icon,
   { outline: React.ElementType; solid: React.ElementType }
 > = {
@@ -62,12 +66,14 @@ const ICON_MAP: Record<
 export default function NavigationItems({
   items,
   unreadNotificationsCount,
+  tooltipSide,
+  className,
 }: NavigationItemsProps) {
   const pathname = usePathname();
 
   return (
     <TooltipProvider>
-      <ul className="space-y-1">
+      <ul className={className}>
         {items.map((item) => {
           const isActive = pathname === item.url;
           const IconComponent = isActive
@@ -119,7 +125,7 @@ export default function NavigationItems({
                     </Button>
                   )}
                 </TooltipTrigger>
-                <TooltipContent className="lg:hidden" side="right">
+                <TooltipContent className="lg:hidden" side={tooltipSide}>
                   {item.title}
                 </TooltipContent>
               </Tooltip>

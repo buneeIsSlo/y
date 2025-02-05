@@ -59,8 +59,8 @@ export default async function LeftSidebar() {
   ];
 
   return (
-    <div className="relative z-10 w-fit lg:w-80">
-      <div className="sticky top-0 h-svh w-fit py-4 pl-4 lg:block lg:w-full lg:pl-0">
+    <div className="relative z-10 lg:w-80">
+      <div className="sticky top-0 hidden h-svh w-fit py-4 pl-4 sm:block sm:w-fit lg:block lg:w-full lg:pl-0">
         <div className="flex h-full w-full flex-col justify-between rounded-3xl border bg-card/40 px-2 py-4 shadow-sm backdrop-blur-3xl">
           <ul className="w-fit lg:w-full">
             <li className="my-1">
@@ -82,12 +82,26 @@ export default async function LeftSidebar() {
               unreadNotificationsCount={{
                 unreadCount: unreadNotificationsCount,
               }}
+              tooltipSide="right"
+              className="w-full"
             />
           </ul>
           <div>
             <UserButton />
           </div>
         </div>
+      </div>
+      <div className="fixed bottom-0 left-0 w-full sm:hidden">
+        <ul className="w-full bg-card/70 backdrop-blur-3xl">
+          <NavigationItems
+            items={NAV_ITEMS}
+            unreadNotificationsCount={{
+              unreadCount: unreadNotificationsCount,
+            }}
+            tooltipSide="top"
+            className="flex w-full justify-between"
+          />
+        </ul>
       </div>
     </div>
   );
