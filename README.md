@@ -1,6 +1,6 @@
 <div align="center">
 
-# [Y](https://ysocial.vercel.app)
+# Y
 
 Y - A social media app similar to X
 
